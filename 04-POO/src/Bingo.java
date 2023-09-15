@@ -4,10 +4,10 @@ import java.util.stream.IntStream;
 
 public class Bingo {
     private static final int MAX_BALL = 30;
-    private List<Integer> unextractedBalls;
-    private List<Integer> extractedBalls = new ArrayList<>();
-    private List<Cardboard> cardboards = new ArrayList<>();
-    private List<Cardboard> winnerCardboards = new ArrayList<>();
+    private final List<Integer> unextractedBalls;
+    private final List<Integer> extractedBalls = new ArrayList<>();
+    private final List<Cardboard> cardboards = new ArrayList<>();
+    private final List<Cardboard> winnerCardboards = new ArrayList<>();
 
     public Bingo() {
         unextractedBalls = IntStream.range(1, MAX_BALL).boxed().collect(Collectors.toList());
