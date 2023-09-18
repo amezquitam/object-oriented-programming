@@ -6,6 +6,8 @@ public class App {
         SmartBinnacle smartBinnacle = new SmartBinnacle("smart", "facebook", "instagram", "tiktok");
         UndoBinnacle undoBinnacle = new UndoBinnacle("undo");
 
+        
+
         var binnacles = List.of(basicBinnacle, smartBinnacle, undoBinnacle);
     }
 }
