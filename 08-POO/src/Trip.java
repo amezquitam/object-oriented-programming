@@ -48,16 +48,12 @@ public class Trip {
         return reservations;
     }
 
-    public int getAvailableReservations() {
-        int availablePlaces = places;
-        for (Reservation reservation : reservations) {
-            availablePlaces += reservation.getNumOfPlaces();
-        }
-        return availablePlaces;
+    public int getAvailablePlaces() {
+        return places - reservations.stream().reduce(0, (accum, reservation) -> accum + reservation.getNumOfPlaces(), Integer::sum);
     }
 
     Reservation reserve(String user, int numOfPlacesRequired) {
-        if (getAvailableReservations() < numOfPlacesRequired || startDate.isBefore(LocalDate.now())) {
+        if (getAvailablePlaces() < numOfPlacesRequired || startDate.isBefore(LocalDate.now())) {
             return null;
         }
         Reservation newReservation = new Reservation(user, numOfPlacesRequired);
@@ -66,19 +62,12 @@ public class Trip {
     }
 
     Reservation getReservationByCode(UUID code) {
-        var reservation = reservations.stream()
-                .filter(reser -> reser.getCode().equals(code))
-                .findFirst();
-        if (reservation.isPresent())
-            return reservation.get();
-        else
-            return null;
+        return reservations.stream().filter(reservation -> reservation.getCode().equals(code)).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
-        return "Trip [carOwner=" + carOwner + ", carModel=" + carModel + ", route=" + route + ", startDate=" + startDate
-                + ", places=" + places + ", reservations=" + reservations + "]";
+        return "Trip [carOwner=" + carOwner + ", carModel=" + carModel + ", route=" + route + ", startDate=" + startDate + ", places=" + places + ", reservations=" + reservations + "]";
     }
 
 }

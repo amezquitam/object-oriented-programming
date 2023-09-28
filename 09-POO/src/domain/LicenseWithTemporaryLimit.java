@@ -1,3 +1,5 @@
+package domain;
+
 import java.time.LocalDate;
 
 public class LicenseWithTemporaryLimit extends License {
@@ -7,13 +9,17 @@ public class LicenseWithTemporaryLimit extends License {
         this.expirationDate = expirationDate;
     }
 
+    public LicenseWithTemporaryLimit(String userEmail, String urlService, int durationInMonths) {
+        this(userEmail, urlService, LocalDate.now().plusMonths(durationInMonths));
+    }
+
     public LicenseWithTemporaryLimit(String userEmail, String urlService) {
-        this(userEmail, urlService, LocalDate.now().plusMonths(3));
+        this(userEmail, urlService, 3);
     }
 
     @Override
-    protected boolean isApplicable() {
-        return !expired();
+    protected boolean isNotApplicable() {
+        return expired();
     }
 
     public LocalDate getExpirationDate() {
@@ -27,5 +33,13 @@ public class LicenseWithTemporaryLimit extends License {
     public void extendExpirationDate(int additionalMonths) {
         if (additionalMonths > 0)
             this.expirationDate = this.expirationDate.plusMonths(additionalMonths);
+    }
+
+    @Override
+    public String toString() {
+        return "\nLicenseWithTemporaryLimit {\n" +
+                "expirationDate=" + expirationDate + '\n' +
+                "License=" + super.toString() + '\n' +
+                '}';
     }
 }

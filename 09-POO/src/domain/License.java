@@ -1,16 +1,17 @@
+package domain;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class License {
+public abstract class License implements Cloneable {
     private final String userEmail;
     private LocalDate activatedAt;
     private String code;
     private List<Transaction> transactions;
     private boolean revoked;
-    private String urlService;
+    private final String urlService;
 
     public License(String userEmail, String urlService) {
         this.userEmail = userEmail;
@@ -59,12 +60,37 @@ public abstract class License {
         return getTransactions().size();
     }
 
-    protected abstract boolean isApplicable();
+    protected abstract boolean isNotApplicable();
 
-    public Transaction getAuthorizationOfTheService() {
-        if (isRevoked() || !isApplicable()) return null;
+    public Transaction getAuthorizationToTheService() {
+        if (isRevoked() || isNotApplicable()) return null;
         Transaction transaction = new Transaction(this);
         getTransactions().add(transaction);
         return transaction;
+    }
+
+    @Override
+    public License clone() {
+        try {
+            License clone = (License) super.clone();
+            clone.activatedAt = LocalDate.now();
+            clone.code = UUID.randomUUID().toString();
+            clone.transactions = List.copyOf(clone.transactions);
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "\nLicense {\n" +
+                "userEmail='" + userEmail + '\'' + '\n' +
+                "activatedAt=" + activatedAt + '\n' +
+                "code='" + code + '\'' + '\n' +
+                "transactions=" + transactions + '\n' +
+                "revoked=" + revoked + '\n' +
+                "urlService='" + urlService + '\'' + '\n' +
+                "}";
     }
 }

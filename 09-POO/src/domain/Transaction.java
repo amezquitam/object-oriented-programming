@@ -1,3 +1,5 @@
+package domain;
+
 import java.time.LocalDate;
 
 public class Transaction {
@@ -16,4 +18,12 @@ public class Transaction {
     public LocalDate getCreatedAt() {
         return createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "createdAt=" + createdAt +
+                '}';
+    }
+
 }
