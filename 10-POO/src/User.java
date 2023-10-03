@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 public class User {
@@ -11,6 +12,7 @@ public class User {
         this.login = login;
         this.password = password;
         this.lastLoginDate = LocalDate.now();
+        this.passwordHistory = new HashSet<>();
         this.passwordHistory.add(password);
     }
     

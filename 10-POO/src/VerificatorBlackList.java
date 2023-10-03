@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class VerificatorBlackList extends Verificator {
@@ -6,6 +7,7 @@ public class VerificatorBlackList extends Verificator {
     
     public VerificatorBlackList() {
         super("Introduzca el número del mes de su último acceso");
+        this.blackList = new ArrayList<>();
     }
 
     @Override
@@ -17,6 +19,10 @@ public class VerificatorBlackList extends Verificator {
     @Override
     protected String generateAnswer(User user) {
         return Integer.toString( user.getLastLoginDate().getMonth().getValue() );
+    }
+
+    void blockUser(User user) {
+        blackList.add(user.getLogin());
     }
     
 }

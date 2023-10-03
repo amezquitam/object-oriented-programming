@@ -19,6 +19,7 @@ public class VerificatorByCode extends Verificator {
         if (!attempsOfUser.containsKey(token)) {
             attempsOfUser.put(token, 0);
         }
+        attempsOfUser.put(token, attempsOfUser.get(token) + 1);
         if (attempsOfUser.get(token) >= maxNumOfAttemps) {
             super.failAnswerBehavior(token);
         }
