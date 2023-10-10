@@ -20,7 +20,7 @@ public class VerificatorByCode extends Verificator {
             attempsOfUser.put(token, 0);
         }
         attempsOfUser.put(token, attempsOfUser.get(token) + 1);
-        if (attempsOfUser.get(token) >= maxNumOfAttemps) {
+        if (attempsOfUser.get(token) > maxNumOfAttemps) {
             super.failAnswerBehavior(token);
         }
     }

@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
+    private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
         User fperez = new User("fperez", "lechemerengada");
         fperez.setPassword("lechemerengada", "cr7comeback");
@@ -21,29 +22,23 @@ public class App {
             }
         }
 
-        Scanner sc = new Scanner(System.in);
+        String tokenFperez = vbc.loginStep1("fperez", "cr7comeback");
+        String tokenMlama = vbc.loginStep1("mlama", "tururu");
+        assert (tokenFperez != null);
+        assert (tokenMlama != null);
 
-        for (Verificator v : vlist) {
-            System.out.println("Login: ");
-            String login = sc.nextLine();
-            System.out.println("Password: ");
-            String password = sc.nextLine();
+   step:
+        System.out.print(vbc.getChallenge() + ": ");
+        String answerFperez = scanner.nextLine();
 
-            String token = v.loginStep1(login, password);
+        System.out.print(vbc.getChallenge() + ": ");
+        String answerMlama = scanner.nextLine();
 
-            if (token == null)
-                continue;
+        boolean mlamaSuccess = vbc.loginStep2(tokenMlama, answerMlama);
+        boolean fperezSuccess = vbc.loginStep2(tokenFperez, answerFperez);
 
-            System.out.println(v.getChallenge() + ": ");
-            String challengeAnswer = sc.nextLine();
-
-            boolean success = v.loginStep2(token, challengeAnswer);
-
-            if (success)
-                System.out.println("Se inicio sesion");
-            else
-                System.out.println("Incorrecto");
-        }
+        if (!mlamaSuccess || !fperezSuccess)
+            continue step;
 
     }
 }

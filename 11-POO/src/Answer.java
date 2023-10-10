@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public enum Answer {
+public enum Answer {
+    YES,
+    NO,
+    BLANK
 }
