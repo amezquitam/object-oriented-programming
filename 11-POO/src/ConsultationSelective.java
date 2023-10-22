@@ -1,7 +1,9 @@
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A selective consultation is a type of consultation that establishes a restriction when voting
@@ -19,7 +21,7 @@ import java.util.Set;
  */
 public class ConsultationSelective extends Consultation {
     private LocalDate thresholdDate;
-    private final Set<Integer> conditionedQuestions;
+    private Set<Integer> conditionedQuestions;
     private LocalDate celebrationDate;
 
     public ConsultationSelective(String title, int numberOfQuestions, LocalDate thresholdDate, LocalDate celebrationDate) {
@@ -59,11 +61,8 @@ public class ConsultationSelective extends Consultation {
     }
 
     public void setConditionedQuestions(Integer... positions) {
-        conditionedQuestions.clear();
-        for (int position : positions) {
-            if (position < 1 || position > numberOfQuestions)
-                continue;
-            conditionedQuestions.add(position);
-        }
+        conditionedQuestions = Arrays.stream(positions).map(position -> position - 1)
+                .filter(position -> position >= 0 && position < numberOfQuestions)
+                .collect(Collectors.toSet());
     }
 }
