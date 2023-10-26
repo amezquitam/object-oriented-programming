@@ -1,47 +1,28 @@
 package hotels;
 
-public class Lodging {
-    private String name;
-    private String address;
-    private String location;
-    private String admin;
+public abstract class NonHotel extends Lodging {
+    private boolean isPrivate;
+    private int area;
 
-    public Lodging(String name, String address, String location, String admin) {
-        this.name = name;
-        this.address = address;
-        this.location = location;
-        this.admin = admin;
+    public NonHotel(String name, String address, String location, String admin, boolean isPrivate, int area) {
+        super(name, address, location, admin);
+        this.isPrivate = isPrivate;
+        this.area = area;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String toString() {
+        return "------------------------------------\n" +
+                "NonHotel:\n" +
+                "\tisPrivate: " + isPrivate + '\n'+
+                "\tarea: " + area + '\n';
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public boolean isPrivate() {
+        return isPrivate;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setAdmin(String admin) {
-        this.admin = admin;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getAdmin() {
-        return admin;
+    public int getArea() {
+        return area;
     }
 }

@@ -114,7 +114,7 @@ class Menu<Context> {
                 number = Integer.parseInt(numberText);
             } catch (NumberFormatException e) {
                 System.out.println(message);
-                System.out.print(" > ");
+                System.out.print("> ");
                 continue;
             }
             break;

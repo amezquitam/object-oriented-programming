@@ -1,6 +1,6 @@
 package travels;
 
-public enum Routes {
+public enum Route {
     A,
     B,
     C

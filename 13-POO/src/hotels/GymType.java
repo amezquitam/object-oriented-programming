@@ -1,2 +1,6 @@
-package hotels;public enum GymType {
+package hotels;
+
+public enum GymType {
+    A,
+    B;
 }

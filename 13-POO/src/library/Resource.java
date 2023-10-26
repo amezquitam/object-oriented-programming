@@ -1,2 +1,6 @@
-package library;public interface Resource {
+package library;
+
+public interface Resource {
+    boolean canBeLent();
+    boolean canBeConsulted();
 }
