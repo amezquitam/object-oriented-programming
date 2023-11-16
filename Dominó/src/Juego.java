@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Juego {
-    private List<Ficha> monton;
-    private List<Ficha> fichasEnMesa;
-    private List<Ficha> fichasJugador1;
-    private List<Ficha> fichasJugador2;
+    private final List<Ficha> monton;
+    private final List<Ficha> fichasEnMesa;
+    private final List<Ficha> fichasJugador1;
+    private final List<Ficha> fichasJugador2;
 
     private int turno;
 
@@ -60,7 +60,7 @@ public class Juego {
 
     Ficha getMayorDoble(List<Ficha> fichas) {
         return fichas.stream().filter(ficha -> ficha.getValorDerecho() == ficha.getValorIzquierdo())
-            .max((f1, f2) -> f1.compareTo(f2)).orElse(null);
+            .max(Ficha::compareTo).orElse(null);
     }
     
     public static void main(String[] args) {
